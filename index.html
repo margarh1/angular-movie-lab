@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html ng-app="movieApp">
+  <head>
+    <title>Angular Move Lab Practice</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <!-- JS -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+
+  </head>
+  <body ng-controller="MovieController as movies">
+    <form ng-submit="movies.addMovie()">
+      <label for="name">Movie Name:</label>
+      <input type="text" ng-model="movies.newMovie.name" name="name"/><br>
+      <label for="date">Release Date:</label>
+      <input type="text" ng-model="movies.newMovie.releaseDate" name="date" /><br>
+      <label for="length">Length in Minutes:</label>
+      <input type="text" ng-model="movies.newMovie.minuteLength" name="minuteLength" /><br>
+      <input type="submit" value="Submit">
+    </form>
+    <hr>
+
+    <ng-pluralize count="movies.moviesToWatch.length"
+    when="{'0': 'No movies to watch.',
+    '1': 'One movie to watch',
+    'other': '{} movies to watch'}"></ng-pluralize>
+    <hr>
+
+    <div ng-repeat="movie in movies.moviesToWatch | orderBy: 'name' | limitTo: 5">
+      <h4>{{movie.name}}</h4>
+      <p>Release Date: {{movie.releaseDate}}<br>
+      {{movie.minuteLength || 'Unknown'}} minutes long</p>
+      <button ng-click="movies.deleteMovie()">x</button>
+    </div>
+
+    <button ng-click="limitTo(null)">View More</button>
+  </body>
+</html>
