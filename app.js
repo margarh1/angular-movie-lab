@@ -6,6 +6,7 @@ angular
 
   function MovieController() {
     var vm = this;
+    vm.listLimit = 5;
 
     vm.moviesToWatch = [
       {
@@ -42,21 +43,35 @@ angular
         name: 'Guardians of the Galaxy 2',
         releaseDate: 'May 5, 2017',
         minuteLength: ''
+      },
+      {
+        name: 'Deadpool',
+        releaseDate: 'February 12, 2016',
+        minuteLength: '108'
       }
     ];
 
     vm.newMovie = {};
 
     vm.addMovie = function() {
-      console.log('add new movie called');
       vm.moviesToWatch.push(vm.newMovie);
       vm.newMovie = {};
     };
 
-    vm.deleteMovie = function() {
-      console.log('delete movie called');
-      console.log(this)
+    vm.deleteMovie = function(movieName) {
+      for (var idx = 0; idx < vm.moviesToWatch.length; idx++) {
+        if (vm.moviesToWatch[idx].name === movieName) {
+          console.log(vm.moviesToWatch[idx])
+          vm.moviesToWatch.splice(idx, 1);
+        }
+      }
     };
+
+    vm.showAll = function() {
+      vm.listLimit = null;
+    };
+
+    console.log(vm)
   };
 
 

@@ -27,13 +27,13 @@
     'other': '{} movies to watch'}"></ng-pluralize>
     <hr>
 
-    <div ng-repeat="movie in movies.moviesToWatch | orderBy: 'name' | limitTo: 5">
+    <div ng-repeat="movie in movies.moviesToWatch | orderBy: 'name' | limitTo: movies.listLimit">
       <h4>{{movie.name}}</h4>
       <p>Release Date: {{movie.releaseDate}}<br>
       {{movie.minuteLength || 'Unknown'}} minutes long</p>
-      <button ng-click="movies.deleteMovie()">x</button>
+      <button ng-click="movies.deleteMovie(movie.name)">x</button>
     </div>
 
-    <button ng-click="limitTo(null)">View More</button>
+    <button ng-click="movies.showAll()">View More</button>
   </body>
 </html>
